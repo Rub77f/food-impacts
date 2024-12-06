@@ -1,8 +1,5 @@
-# React + Vite
+## food-impacts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Web application offering interface for users to enter a food recipe and receive summarized information about
+# 1/ its macro nutrients, using data from CIQUAL 2020, database on French food products
+# 2/ its carbon impacts, using data from AGRIBALYSE, database with ecological impacts from CIQUAL French food products
