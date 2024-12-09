@@ -2,88 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Food Impacts</title>
-    <style>
-      body {
-        background-color: #202b3c;
-        display: flex; /* Centering the form */
-        justify-content: center; /* Centering the form */
-        align-items: center; /* Centering the form */
-        height: 100vh; /* Centering the form */
-        margin: 0; /* Removing default margin */
-      }
-      form {
-        display: flex;
-        flex-direction: column; /* Aligning form elements vertically */
-        align-items: center; /* Centering form elements horizontally */
-        background-color: #fff; /* Adding a white background to the form */
-        padding: 20px; /* Adding padding to the form */
-        border-radius: 8px; /* Adding border radius to the form */
-      }
-      label, button {
-        color: #FF9900;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        margin: 10px 0; /* Adding margin between elements */
-      }
-      input {
-        color: #232F3E;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        margin: 10px 0; /* Adding margin between elements */
-        width: 250px; /* Setting input width */
-        padding: 5px; /* Adding padding to input */
-      }
-      button {
-        background-color: #ff9900e5; /* Adding background color to button */
-        color: #fff; /* Changing button text color */
-        border: none; /* Removing button border */
-        padding: 10px 20px; /* Adding padding to button */
-        cursor: pointer; /* Changing cursor to pointer on hover */
-      }
-      h1{
-        color: #202b3c;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-    </style>
-    <script>
-      // Define the function to call the API with the provided first name, last name, and phone number
-      let callAPI = (ingredient1, ingredient2)=>
-      {
-        // Create a new Headers object and set the 'Content-Type' to 'application/json'
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        
-        // Create the JSON string from the input values
-        let raw = JSON.stringify({"ingredient1": ingredient1, "ingredient2": ingredient2})
-
-        // Define the request options including method, headers, body, and redirect behavior
-        let requestOptions = {
-          method: 'POST', // Method type
-          headers: myHeaders, // Headers for the request
-          body: raw, // The body of the request containing the JSON string
-          redirect: 'follow' // Automatically follow redirects
-        };
-        
-        // Use the fetch API to send the request to the specified URL
-        fetch("https://u1m56zt6la.execute-api.eu-west-3.amazonaws.com/food-impacts-web-stage", requestOptions) // Replace "API_KEY" with your actual API endpoint
-          .then(response => response.text()) // Parse the response as text
-          .then(result => alert(JSON.parse(result).message)) // Parse the result as JSON and alert the message
-          .catch(error => console.log('error', error)); // Log any errors to the console
-      }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Impacts simple app</title>
   </head>
   <body>
-    <form>
-      <h1> RECIPE </h1>
-      <label> Ingredient 1 </label>
-      <input type="text" id="ingredient1">
-      <label> Ingredient 2 </label>
-      <input type="text" id="ingredient2">
-      <button type="button" onclick="callAPI(document.getElementById('ingredient1').value, document.getElementById('ingredient2').value)">Submit</button>
-      <!-- Button to submit user input without reloading the page -->
-      <!-- When clicked, it calls the callAPI function with values from the input fields -->
-    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
