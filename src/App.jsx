@@ -1,63 +1,152 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import WelcomePage from './WelcomePage'; 
+import RecipeForm from './RecipeForm'; 
+import IngredientList from './IngredientList';
 import './App.css'
 
+
 function App() {
-  const [ingredient1, setIngredient1Value] = useState('')
-  const [ingredient2, setIngredient2Value] = useState('')
-  const [responseData, setResponseData] = useState(null)
+  const [isRecipeStarted, setIsRecipeStarted] = useState(false); 
+  const [ingredients, setIngredients] = useState([]);
+  const [availableIngredients, setAvailableIngredients] = useState([]);
+  const [responseTableData, setResponseTableData] = useState([]);
 
-  const ingredient1Change = (e) => {
-    setIngredient1Value(e.target.value);
-  }
+  useEffect(() => {
+    const fetchIngredients = async () => {
+        try {
+            // Create a new Headers and body json string from the input values
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-  const ingredient2Change = (e) => {
-    setIngredient2Value(e.target.value);
-  }
+            // Define the request options including method, headers, body, and redirect behavior
+            let requestOptions = {
+              method: 'POST', // Method type
+              headers: myHeaders, // Headers for the request
+              body: JSON.stringify({'type':'all'}), // The body of the request containing the JSON string
+              redirect: 'follow' // Automatically follow redirects
+            };
+
+            const response = await fetch('https://u1m56zt6la.execute-api.eu-west-3.amazonaws.com/food-impacts-web-stage/GetCiqualFoodList', requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const ciqualIngredientJson = await response.json();
+            const ciqualIngredientList = JSON.parse(ciqualIngredientJson.body); // Adjusting to parse the body property
+            setAvailableIngredients(ciqualIngredientList);
+        } catch (error) {
+            console.error('Error fetching ingredients:', error);
+        }
+    };
+
+    fetchIngredients();
+  }, []);
+
+  const startRecipe = () => { setIsRecipeStarted(true); }; 
   
-  const handleClick = async () => {  
+  const addIngredient = (ingredient) => { setIngredients([...ingredients, ingredient]); };
+  
+  const formatIngredients = (ingredients) => { 
+    const formatted = {}; 
+    ingredients.forEach((item, index) => {
+      const i = index + 1; formatted[`ingredient${i}`] = item.ingredient; 
+      formatted[`quantity${i}`] = item.quantity; 
+      formatted[`unit${i}`] = item.unit; 
+    }); 
+    return formatted; 
+  };
+
+  const completeRecipe = async () => {  
     try {
-      // Create a new Headers object and set the 'Content-Type' to 'application/json'
+      // Format the input
+      const formattedIngredients = formatIngredients(ingredients)
+
+      // Create a new Headers and body json string from the input values
       let myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      
-      // Create the JSON string from the input values
-      let raw = JSON.stringify({"ingredient1": ingredient1, "ingredient2": ingredient2})
+      let body = JSON.stringify(formattedIngredients)
 
       // Define the request options including method, headers, body, and redirect behavior
       let requestOptions = {
         method: 'POST', // Method type
         headers: myHeaders, // Headers for the request
-        body: raw, // The body of the request containing the JSON string
+        body: body, // The body of the request containing the JSON string
         redirect: 'follow' // Automatically follow redirects
       };
-          
+      
+      // Call AWS lambda function and collect json response
       const response = await fetch('https://u1m56zt6la.execute-api.eu-west-3.amazonaws.com/food-impacts-web-stage', requestOptions); 
       if (!response.ok) { 
         throw new Error(`HTTP error! Status: ${response.status}`); 
       }
       
       const data = await response.json();
-      setResponseData(data);
-      console.log('Response data:', data)
+      const parsedData = JSON.parse(data.body);
+      setResponseTableData(parsedData);
+      console.log('Response data:', parsedData)
     }
-    catch (error) { console.error('Error fetching data:', error); }
+    catch (error) { 
+      console.error('Error fetching data:', error);
+    }
   }
   
   return (
     <>
-      <div className='App'>
-        <input type="text" value={ingredient1} onChange={ingredient1Change} placeholder="Enter ingredient 1"/>
-        <input type="text" value={ingredient2} onChange={ingredient2Change} placeholder="Enter ingredient 2"/>
-        <button onClick={handleClick}>Submit recipe</button>
-        {responseData && ( 
-          <div> 
-            <h3> Response:</h3> 
-            <pre>{JSON.stringify(responseData, null, 2)}</pre> 
-          </div> )}
-      </div>
+        <div className="App">
+            {isRecipeStarted ? (
+                <div className="recipe-container">
+                    <IngredientList ingredients={ingredients} />
+                    <RecipeForm availableIngredients={availableIngredients} addIngredient={addIngredient} completeRecipe={completeRecipe} />
+                    {responseTableData && (
+                        <div>
+                          <h3>Nutrition table</h3>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th>Aliment</th>
+                                      <th>Quantité</th>
+                                      <th>Energie (kcal)</th>
+                                      <th>Protéines (g)</th>
+                                      <th>Glucides (g)</th>
+                                      <th>Lipides (g)</th>
+                                      <th>Sucres (g)</th>
+                                      <th>Fibres alimentaires (g)</th>
+                                      <th>AG saturés (g)</th>
+                                      <th>AG monoinsaturés (g)</th>
+                                      <th>AG polyinsaturés (g)</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {Object.entries(responseTableData).map(([ingredient, nutrients], index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{ingredient}</td>
+                                                <td>{nutrients["QuantityUnit"]}</td>
+                                                <td>{nutrients["Energie (kcal)"]}</td> 
+                                                <td>{nutrients["Protéines (g)"]}</td> 
+                                                <td>{nutrients["Glucides (g)"]}</td> 
+                                                <td>{nutrients["Lipides (g)"]}</td> 
+                                                <td>{nutrients["Sucres (g)"]}</td> 
+                                                <td>{nutrients["Fibres alimentaires (g)"]}</td> 
+                                                <td>{nutrients["AG saturés (g)"]}</td> 
+                                                <td>{nutrients["AG monoinsaturés (g)"]}</td> 
+                                                <td>{nutrients["AG polyinsaturés (g)"]}</td>
+                                            </tr>
+                                        );
+                                  })}
+                              </tbody>
+                          </table>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <WelcomePage startRecipe={startRecipe} />
+            )}
+        </div>
     </>
   )
 }
+
+export default App;
 
 /*
         <a href='https://ciqual.anses.fr/' target="_blank">
@@ -77,4 +166,3 @@ function App() {
             <pre>{JSON.stringify(responseData, null, 2)}</pre> 
           </div> )}
 */
-export default App

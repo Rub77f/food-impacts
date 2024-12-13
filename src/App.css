@@ -1,32 +1,50 @@
-.App 
-{ display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
-  height: 100vh; 
-  background-color: #f0f0f0; 
+/* App.css */
+.App {
+  text-align: center;
 }
 
-input[type="text"] { 
-  width: 200px; 
-  padding: 10px; 
-  margin-bottom: 20px; 
+.recipe-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.welcome-page {
+  margin-top: 50px;
+}
+
+.recipe-form {
+  margin: 20px;
+}
+
+.ingredient-list {
+  margin: 20px;
+}
+
+.search-bar { 
+  position: relative; 
+  display: inline-block; /* Ensure the search bar and suggestions list are treated as inline-block */
+}
+
+.suggestions-list { 
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0; 
+  position: absolute;
+  left: 0;
+  width: 100%; 
   border: 1px solid #ccc; 
-  border-radius: 4px; 
-  font-size: 16px; 
-}
-
-button { 
-  padding: 10px 20px; 
-  font-size: 16px; 
-  color: white; 
-  background-color: #007bff; 
-  border: none; 
-  border-radius: 4px; 
-  cursor: pointer; 
-  transition: background-color 0.3s; 
+  background-color: #fff; 
+  max-height: 150px; 
+  overflow-y: auto; 
+  z-index: 1; 
+  font-size: 12px; /* Smaller font size */ 
 } 
   
-button:hover { 
-  background-color:#0056b3;
-}
+  .suggestions-list li { 
+    padding: 8px; 
+    cursor: pointer; 
+  } 
+  
+  .suggestions-list li:hover { 
+    background-color: #f0f0f0; /* Highlight background on hover */ 
+  }
