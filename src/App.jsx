@@ -88,60 +88,71 @@ function App() {
       console.error('Error fetching data:', error);
     }
   }
+
+  const removeIngredient = (indexToRemove) => {
+    setIngredients(ingredients.filter((_, index) => index !== indexToRemove));
+  };
   
   return (
     <>
-        <div className="App">
-            {isRecipeStarted ? (
-                <div className="recipe-container">
-                    <IngredientList ingredients={ingredients} />
-                    <RecipeForm availableIngredients={availableIngredients} addIngredient={addIngredient} completeRecipe={completeRecipe} />
-                    {responseTableData && (
-                        <div>
-                          <h3>Nutrition table</h3>
-                          <table>
-                              <thead>
-                                  <tr>
-                                      <th>Aliment</th>
-                                      <th>Quantité</th>
-                                      <th>Energie (kcal)</th>
-                                      <th>Protéines (g)</th>
-                                      <th>Glucides (g)</th>
-                                      <th>Lipides (g)</th>
-                                      <th>Sucres (g)</th>
-                                      <th>Fibres alimentaires (g)</th>
-                                      <th>AG saturés (g)</th>
-                                      <th>AG monoinsaturés (g)</th>
-                                      <th>AG polyinsaturés (g)</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  {Object.entries(responseTableData).map(([ingredient, nutrients], index) => {
-                                        return (
-                                            <tr key={index}>
-                                                <td>{ingredient}</td>
-                                                <td>{nutrients["QuantityUnit"]}</td>
-                                                <td>{nutrients["Energie (kcal)"]}</td> 
-                                                <td>{nutrients["Protéines (g)"]}</td> 
-                                                <td>{nutrients["Glucides (g)"]}</td> 
-                                                <td>{nutrients["Lipides (g)"]}</td> 
-                                                <td>{nutrients["Sucres (g)"]}</td> 
-                                                <td>{nutrients["Fibres alimentaires (g)"]}</td> 
-                                                <td>{nutrients["AG saturés (g)"]}</td> 
-                                                <td>{nutrients["AG monoinsaturés (g)"]}</td> 
-                                                <td>{nutrients["AG polyinsaturés (g)"]}</td>
-                                            </tr>
-                                        );
-                                  })}
-                              </tbody>
-                          </table>
-                        </div>
-                    )}
-                </div>
-            ) : (
-                <WelcomePage startRecipe={startRecipe} />
+      <div className="App">
+        {isRecipeStarted ? (
+          <div className="recipe-container">
+            {ingredients.length > 0 && (
+              <IngredientList ingredients={ingredients} removeIngredient={removeIngredient} />
             )}
-        </div>
+            <RecipeForm
+              availableIngredients={availableIngredients}
+              addIngredient={addIngredient}
+              completeRecipe={completeRecipe}
+            />
+          </div>
+        ) : (
+          <WelcomePage startRecipe={startRecipe} />
+        )}
+        {Object.keys(responseTableData).length > 0 && (
+          <div className="nutrition-table-container">
+            <h3>Nutrition table</h3>
+            <table className="nutrition-table">
+              <thead>
+                <tr>
+                  <th>Aliment</th>
+                  <th>Quantité</th>
+                  <th>Energie (kcal)</th>
+                  <th>Protéines (g)</th>
+                  <th>Glucides (g)</th>
+                  <th>Lipides (g)</th>
+                  <th>Sucres (g)</th>
+                  <th>Fibres alimentaires (g)</th>
+                  <th>AG saturés (g)</th>
+                  <th>AG monoinsaturés (g)</th>
+                  <th>AG polyinsaturés (g)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(responseTableData).map(([ingredient, nutrients], index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{ingredient}</td>
+                        <td>{nutrients["QuantityUnit"]}</td>
+                        <td>{nutrients["Energie (kcal)"]}</td>
+                        <td>{nutrients["Protéines (g)"]}</td>
+                        <td>{nutrients["Glucides (g)"]}</td>
+                        <td>{nutrients["Lipides (g)"]}</td>
+                        <td>{nutrients["Sucres (g)"]}</td>
+                        <td>{nutrients["Fibres alimentaires (g)"]}</td>
+                        <td>{nutrients["AG saturés (g)"]}</td>
+                        <td>{nutrients["AG monoinsaturés (g)"]}</td>
+                        <td>{nutrients["AG polyinsaturés (g)"]}</td>
+                      </tr>
+                    );
+                  }
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </>
   )
 }

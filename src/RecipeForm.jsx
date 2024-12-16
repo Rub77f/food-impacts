@@ -35,37 +35,39 @@ function RecipeForm({ availableIngredients, addIngredient, completeRecipe }) {
     return (
         <div className="recipe-form">
             <h2>Add an Ingredient</h2>
-            <div className="search-bar">
+            <div className="input-group">
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        value={ingredient}
+                        onChange={handleInputChange}
+                        placeholder="Search for an ingredient"
+                    />
+                    <ul className="suggestions-list">
+                        {suggestions.map((suggestion, index) => (
+                            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                                {suggestion}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 <input
-                    type="text"
-                    value={ingredient}
-                    onChange={handleInputChange}
-                    placeholder="Search for an ingredient"
+                    type="number"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    placeholder="Quantity"
                 />
-                <ul className="suggestions-list">
-                    {suggestions.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-                            {suggestion}
-                        </li>
-                    ))}
-                </ul>
+                <select
+                    value={unit}
+                    onChange={(e) => setUnit(e.target.value)}
+                >
+                    <option value="">Select Unit</option>
+                    <option value="g">grams</option>
+                    <option value="ml">milliliters</option>
+                </select>
+                <button onClick={handleAddIngredient}>Add Ingredient</button>
             </div>
-            <input
-                type="number"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                placeholder="Quantity"
-            />
-            <select
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-            >
-                <option value="">Select Unit</option>
-                <option value="g">grams</option>
-                <option value="ml">milliliters</option>
-            </select>
-            <button onClick={handleAddIngredient}>Add Ingredient</button>
-            <button onClick={completeRecipe}>Complete Recipe</button>
+            <button className="complete-recipe-button" onClick={completeRecipe}>Complete Recipe</button>
         </div>
     );
 }

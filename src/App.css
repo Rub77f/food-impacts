@@ -5,19 +5,85 @@
 
 .recipe-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Adjusted to space-between for better alignment */
 }
 
 .welcome-page {
-  margin-top: 50px;
+  margin: 0; /* Remove top margin */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+  justify-content: center; /* Center the content vertically */
+  height: 100vh; /* Take full viewport height */
+  text-align: center; /* Center the text */
+  width: 100%; /* Ensure the content takes full width */
+  position: absolute; /* Positioning to center the content */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
 }
 
 .recipe-form {
   margin: 20px;
+  font-size: 14px; /* Smaller font size */
+  flex: 1; /* Allow the form to take up available space */
+  text-align: center; /* Center the form content */
+}
+
+.recipe-form .input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between inputs */
+  margin-bottom: 20px; /* Space below the input group */
+}
+
+.recipe-form .complete-recipe-button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.recipe-form .complete-recipe-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.recipe-form input[type="number"] {
+  width: 72px; /* Adjust width to fit 6 numerical characters */
 }
 
 .ingredient-list {
   margin: 20px;
+  font-size: 14px; /* Smaller font size */
+  flex: 1; /* Allow the list to take up available space */
+  text-align: left; /* Align text to the left */
+}
+
+  .ingredient-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .ingredient-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+  }
+
+.remove-button {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.remove-button:hover {
+  color: darkred;
 }
 
 .search-bar { 
@@ -48,3 +114,38 @@
   .suggestions-list li:hover { 
     background-color: #f0f0f0; /* Highlight background on hover */ 
   }
+
+.nutrition-table-container {
+  margin: 20px;
+}
+
+.nutrition-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.nutrition-table th, .nutrition-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.nutrition-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.nutrition-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.nutrition-table tr:hover {
+  background-color: #ddd;
+}
+
+.nutrition-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
+}
