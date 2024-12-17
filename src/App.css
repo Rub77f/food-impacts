@@ -56,7 +56,7 @@
 
 .ingredient-list {
   margin: 20px;
-  font-size: 14px; /* Smaller font size */
+  font-size: 12px; /* Smaller font size */
   flex: 1; /* Allow the list to take up available space */
   text-align: left; /* Align text to the left */
 }
@@ -70,7 +70,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0;
+    padding: 1px 0; /* Reduced padding */
   }
 
 .remove-button {
@@ -120,9 +120,10 @@
 }
 
 .nutrition-table {
-  width: 100%;
+  width: auto; /* Adjust width to fit content */
   border-collapse: collapse;
   margin-top: 20px;
+  font-size: 12px; /* Reduced font size */
 }
 
 .nutrition-table th, .nutrition-table td {
@@ -148,4 +149,168 @@
   padding-bottom: 12px;
   background-color: #4CAF50;
   color: white;
+}
+
+.nutrition-table td:nth-child(1) {
+  text-align: left; /* Align first column to the left */
+}
+
+/* Ensure columns adjust to the largest element */
+.nutrition-table th:nth-child(1),
+.nutrition-table td:nth-child(1) {
+  width: auto;
+}
+
+.nutrition-table th:nth-child(2),
+.nutrition-table td:nth-child(2) {
+  width: auto;
+}
+
+.nutrition-table th:nth-child(3),
+.nutrition-table td:nth-child(3) {
+  width: auto;
+}
+
+.nutrition-table th:nth-child(4),
+.nutrition-table td:nth-child(4) {
+  width: auto;
+}
+
+.carbon-impact-table-container {
+  margin: 20px;
+}
+
+.carbon-impact-title {
+  text-align: left; /* Align the title to the left */
+}
+
+.carbon-impact-table-container p {
+  font-size: 10px; /* Small font size */
+  font-style: italic; /* Italic text */
+  text-align: left; /* Align the text to the left */
+}
+
+/* Reuse the same styles for the carbon impact table */
+.carbon-impact-table-container .carbon-impact-table {
+  width: auto; /* Adjust width to fit content */
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 12px; /* Reduced font size */
+}
+
+.carbon-impact-table-container .carbon-impact-table th, 
+.carbon-impact-table-container .carbon-impact-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.carbon-impact-table-container .carbon-impact-table th {
+  background-color: yellow; /* Yellow background color for headers */
+  text-align: left;
+}
+
+.carbon-impact-table-container .carbon-impact-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.carbon-impact-table-container .carbon-impact-table tr:hover {
+  background-color: #ddd;
+}
+
+.carbon-impact-table-container .carbon-impact-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: black; /* Black text color */
+}
+
+.carbon-impact-table-container .carbon-impact-table td:nth-child(1) {
+  text-align: left; /* Align first column to the left */
+}
+
+/* Ensure columns adjust to the largest element */
+.carbon-impact-table-container .carbon-impact-table th:nth-child(1),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(1) {
+  width: auto;
+}
+
+.carbon-impact-table-container .carbon-impact-table th:nth-child(2),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(2) {
+  width: auto;
+}
+
+.carbon-impact-table-container .carbon-impact-table th:nth-child(3),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(3) {
+  width: auto;
+}
+
+.carbon-impact-table-container .carbon-impact-table th:nth-child(4),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(4) {
+  width: auto;
+}
+
+/* Ensure columns adjust to the largest element */
+.carbon-impact-table-container .nutrition-table th:nth-child(1),
+.carbon-impact-table-container .nutrition-table td:nth-child(1) {
+  width: auto;
+}
+
+.carbon-impact-table-container .nutrition-table th:nth-child(2),
+.carbon-impact-table-container .nutrition-table td:nth-child(2) {
+  width: auto;
+}
+
+.carbon-impact-table-container .nutrition-table th:nth-child(3),
+.carbon-impact-table-container .nutrition-table td:nth-child(3) {
+  width: auto;
+}
+
+.carbon-impact-table-container .nutrition-table th:nth-child(4),
+.carbon-impact-table-container .nutrition-table td:nth-child(4) {
+  width: auto;
+}
+
+/* Ensure columns adjust to the largest element */
+.carbon-impact-table-container .carbon-impact-table th:nth-child(1),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(1) {
+  width: auto;
+}
+
+.carbon-impact-table-container .carbon-impact-table th:nth-child(2),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(2) {
+  width: auto;
+}
+
+.carbon-impact-table-container .carbon-impact-table th:nth-child(3),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(3) {
+  width: auto;
+}
+
+.carbon-impact-table-container .carbon-impact-table th:nth-child(4),
+.carbon-impact-table-container .carbon-impact-table td:nth-child(4) {
+  width: auto;
+}
+
+/* Styles for the ingredient table */
+.ingredient-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 12px; /* Reduced font size */
+}
+
+.ingredient-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.ingredient-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.ingredient-table tr:hover {
+  background-color: #ddd;
+}
+
+.table-title {
+  text-align: left; /* Align the title to the left */
 }

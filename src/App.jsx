@@ -9,7 +9,8 @@ function App() {
   const [isRecipeStarted, setIsRecipeStarted] = useState(false); 
   const [ingredients, setIngredients] = useState([]);
   const [availableIngredients, setAvailableIngredients] = useState([]);
-  const [responseTableData, setResponseTableData] = useState([]);
+  const [responseCiqualData, setResponseCiqualData] = useState([]);
+  const [responseAgribalyseData, setResponseAgribalyseData] = useState([]);
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -30,9 +31,9 @@ function App() {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const ciqualIngredientJson = await response.json();
-            const ciqualIngredientList = JSON.parse(ciqualIngredientJson.body); // Adjusting to parse the body property
-            setAvailableIngredients(ciqualIngredientList);
+            const jointIngredientJson = await response.json();
+            const jointIngredientList = JSON.parse(jointIngredientJson.body); // Adjusting to parse the body property
+            setAvailableIngredients(jointIngredientList);
         } catch (error) {
             console.error('Error fetching ingredients:', error);
         }
@@ -81,7 +82,10 @@ function App() {
       
       const data = await response.json();
       const parsedData = JSON.parse(data.body);
-      setResponseTableData(parsedData);
+      const parsedCiqualData = JSON.parse(parsedData['ciqual']);
+      const parsedAgribalyseData = JSON.parse(parsedData['agribalyse']);
+      setResponseCiqualData(parsedCiqualData);
+      setResponseAgribalyseData(parsedAgribalyseData);
       console.log('Response data:', parsedData)
     }
     catch (error) { 
@@ -110,9 +114,9 @@ function App() {
         ) : (
           <WelcomePage startRecipe={startRecipe} />
         )}
-        {Object.keys(responseTableData).length > 0 && (
+        {Object.keys(responseCiqualData).length > 0 && (
           <div className="nutrition-table-container">
-            <h3>Nutrition table</h3>
+            <h3 className="table-title">Nutriments macro</h3>
             <table className="nutrition-table">
               <thead>
                 <tr>
@@ -130,7 +134,7 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(responseTableData).map(([ingredient, nutrients], index) => {
+                {Object.entries(responseCiqualData).map(([ingredient, nutrients], index) => {
                     return (
                       <tr key={index}>
                         <td>{ingredient}</td>
@@ -144,6 +148,36 @@ function App() {
                         <td>{nutrients["AG saturés (g)"]}</td>
                         <td>{nutrients["AG monoinsaturés (g)"]}</td>
                         <td>{nutrients["AG polyinsaturés (g)"]}</td>
+                      </tr>
+                    );
+                  }
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {Object.keys(responseAgribalyseData).length > 0 && (
+          <div className="carbon-impact-table-container">
+            <h3 className="table-title">Impact carbone</h3>
+            <p>* Score unique EF: score environmental moyen, n'a d'interet que relativement a d'autres produits.</p>
+            <p>** DQR: note de qualite des donees de 1, tres bon a 5, mauvais.</p>
+            <table className="carbon-impact-table">
+              <thead>
+                <tr>
+                  <th>Aliment</th>
+                  <th>Score unique EF (mPt/kg)*</th>
+                  <th>Changement climatique (kgCO2eq/kg)</th>
+                  <th>DQR**</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(responseAgribalyseData).map(([ingredient, impact], index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{ingredient}</td>
+                        <td>{impact["Score_unique_EF"]}</td>
+                        <td>{impact["Changement_climatique"]}</td>
+                        <td>{impact["DQR"]}</td>
                       </tr>
                     );
                   }

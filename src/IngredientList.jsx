@@ -8,7 +8,7 @@ function IngredientList({ ingredients, removeIngredient }) {
             <ul>
                 {ingredients.map((item, index) => (
                     <li key={index}>
-                        {item.quantity} {item.unit} of {item.ingredient}
+                        {item.quantity} {item.unit} de {item.ingredient}
                         <button className="remove-button" onClick={() => removeIngredient(index)}>✖</button>
                     </li>
                 ))}

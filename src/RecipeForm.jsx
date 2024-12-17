@@ -34,14 +34,14 @@ function RecipeForm({ availableIngredients, addIngredient, completeRecipe }) {
 
     return (
         <div className="recipe-form">
-            <h2>Add an Ingredient</h2>
+            <h2>Ajouter un ingredient</h2>
             <div className="input-group">
                 <div className="search-bar">
                     <input
                         type="text"
                         value={ingredient}
                         onChange={handleInputChange}
-                        placeholder="Search for an ingredient"
+                        placeholder="Entrer un ingredient"
                     />
                     <ul className="suggestions-list">
                         {suggestions.map((suggestion, index) => (
@@ -55,19 +55,19 @@ function RecipeForm({ availableIngredients, addIngredient, completeRecipe }) {
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
-                    placeholder="Quantity"
+                    placeholder="Quantite"
                 />
                 <select
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)}
                 >
-                    <option value="">Select Unit</option>
-                    <option value="g">grams</option>
-                    <option value="ml">milliliters</option>
+                    <option value="">Selectionner une unite</option>
+                    <option value="g">grammes</option>
+                    <option value="ml">millilitres</option>
                 </select>
-                <button onClick={handleAddIngredient}>Add Ingredient</button>
+                <button onClick={handleAddIngredient}>Ajouter</button>
             </div>
-            <button className="complete-recipe-button" onClick={completeRecipe}>Complete Recipe</button>
+            <button className="complete-recipe-button" onClick={completeRecipe}>Recette complete !</button>
         </div>
     );
 }

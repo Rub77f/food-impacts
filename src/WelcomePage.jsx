@@ -3,11 +3,11 @@ import React from 'react';
 function WelcomePage({ startRecipe }) {
     return (
         <div className="welcome-page">
-            <h1>Welcome to the Food Impacts application</h1>
+            <h1>Bienvenue sur cette application de recette</h1>
             <text>
-                <p>Enter the ingredients for your recipe and we will show you both the macro nutrients as well as the carbon impact of your recipe</p>
+                <p>Entrez les differents ingredients de votre recette et l'application vous retournera les nutriments macro ainsi que l'impact carbone par ingredient</p>
             </text>
-            <button onClick={startRecipe}>Start Your Recipe</button>
+            <button onClick={startRecipe}>Commencer !</button>
         </div>
     );
 }
