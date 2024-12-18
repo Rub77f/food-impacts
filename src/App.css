@@ -176,6 +176,11 @@
   width: auto;
 }
 
+/* Style for the last row */
+.nutrition-table tr:last-child {
+  background-color: #e0e0e0; /* Slightly dark gray */
+}
+
 .carbon-impact-table-container {
   margin: 20px;
 }
@@ -248,6 +253,11 @@
   width: auto;
 }
 
+/* Style for the last row */
+.carbon-impact-table-container .carbon-impact-table tr:last-child {
+  background-color: #e0e0e0; /* Slightly dark gray */
+}
+
 /* Ensure columns adjust to the largest element */
 .carbon-impact-table-container .nutrition-table th:nth-child(1),
 .carbon-impact-table-container .nutrition-table td:nth-child(1) {
@@ -292,10 +302,10 @@
 
 /* Styles for the ingredient table */
 .ingredient-table {
-  width: 100%;
+  width: auto; /* Adjust width to fit content */
   border-collapse: collapse;
-  margin-top: 20px;
   font-size: 12px; /* Reduced font size */
+  height: auto; /* Adjust height to fit content */
 }
 
 .ingredient-table td {
@@ -309,6 +319,15 @@
 
 .ingredient-table tr:hover {
   background-color: #ddd;
+}
+
+/* Ensure columns adjust to the largest element */
+.ingredient-table td:nth-child(1) {
+  width: auto;
+}
+
+.ingredient-table td:nth-child(2) {
+  width: auto;
 }
 
 .table-title {

@@ -165,8 +165,9 @@ function App() {
               <thead>
                 <tr>
                   <th>Aliment</th>
-                  <th>Score unique EF (mPt/kg)*</th>
-                  <th>Changement climatique (kgCO2eq/kg)</th>
+                  <th>Quantite</th>
+                  <th>Score unique EF (mPt)*</th>
+                  <th>Changement climatique (kgCO2eq)</th>
                   <th>DQR**</th>
                 </tr>
               </thead>
@@ -175,6 +176,7 @@ function App() {
                     return (
                       <tr key={index}>
                         <td>{ingredient}</td>
+                        <td>{impact["QuantityUnit"]}</td>
                         <td>{impact["Score_unique_EF"]}</td>
                         <td>{impact["Changement_climatique"]}</td>
                         <td>{impact["DQR"]}</td>
